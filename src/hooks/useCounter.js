@@ -13,5 +13,10 @@ export const useCounter = (initialValue) => {
 		setCounter(newCounter);
 	};
 
-	return { counter, handleAdd, handleSubtract };
+	const handleReset = (setDscto) => {
+		setCounter([]);
+		setDscto(0);
+	};
+
+	return { counter, handleAdd, handleSubtract, handleReset };
 };

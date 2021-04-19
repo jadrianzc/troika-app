@@ -8,6 +8,7 @@ export const useStateTable = (dscto) => {
 		precioUnitario: 0,
 		precio: 0,
 	});
+
 	const { cantidad, totalParcial } = tableState;
 
 	const handleCantidad = ({ target }) => {
@@ -38,10 +39,16 @@ export const useStateTable = (dscto) => {
 		setTableState((tableState) => ({
 			...tableState,
 			descuento: valorDsct,
-			precioUnitario: [valorPU === 'NaN' || valorPU === 'Infinity' ? '0.0000' : valorPU],
-			precio: [valorPrecio === 'NaN' || valorPrecio === 'Infinity' ? '0.0000' : valorPrecio],
+			precioUnitario: [
+				valorPU === 'NaN' || valorPU === 'Infinity' ? '0.0000' : valorPU,
+			],
+			precio: [
+				valorPrecio === 'NaN' || valorPrecio === 'Infinity'
+					? '0.0000'
+					: valorPrecio,
+			],
 		}));
 	}, [cantidad, totalParcial, dscto]);
 
-	return { tableState, handleCantidad, handleFocus, handleBlur };
+	return { tableState, setTableState, handleCantidad, handleFocus, handleBlur };
 };

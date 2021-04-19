@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Main } from './components/Main/Main';
-import './app.css';
+import './App.css';
 
 export const App = () => {
 	const inputRef = useRef();
@@ -39,7 +39,7 @@ export const App = () => {
 				/>
 				<span>%</span>
 			</div>
-			<Main dscto={dscto} />
+			<Main dscto={dscto} setDscto={setDscto} />
 		</div>
 	);
 };

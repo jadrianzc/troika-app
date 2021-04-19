@@ -9,10 +9,15 @@
 
 .table-footer-container-title {
 	display: grid;
-	justify-items: end;
+	justify-items: start;
 }
 
 .table-footer-container-body {
 	display: grid;
-	grid-template-columns: repeat(1, 1fr);
+	justify-items: end;
+	/* grid-template-columns: repeat(1, 1fr); */
+}
+
+.table-item--footer {
+	text-align: end !important;
 }

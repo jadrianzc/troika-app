@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './total.css';
 
 export const Total = ({ dscto }) => {
-	const [subtotal, setSubtotal] = useState(0);
-	const [descuento, setDescuento] = useState(0);
-	const [iva, setIva] = useState(0);
-	const [total, setTotal] = useState(0);
+	const dsctoList = document.querySelectorAll('.table-item-dsct');
+	const precioList = document.querySelectorAll('.table-item-precio');
 
-	// useEffect(() => {
-	// 	const items = document.querySelectorAll('.table-item-dsct');
-	// 	const newArray = [...items];
-	// 	const arrayDscto = newArray.map((div) => div.value);
+	const arrayDsctoList = [...dsctoList];
+	const arrayPrecioList = [...precioList];
 
-	// 	arrayDscto.forEach((value) => {
-	// 		console.log(value);
-	// 		const valor = value;
-	// 		const totalDscto = parseFloat(value) + parseFloat(valor);
+	const arrayDscto = arrayDsctoList.map((div) => parseFloat(div.value));
+	const arrayPrecio = arrayPrecioList.map((div) => parseFloat(div.value));
 
-	// 		setSubtotal(totalDscto);
-	// 		console.log(subtotal);
-	// 	});
-	// });
+	const totalDscto = arrayDscto.reduce((a, b) => a + b, 0);
+	const totalPrecio = arrayPrecio.reduce((a, b) => a + b, 0);
+	const totalIva = totalPrecio * 0.12;
 
 	return (
 		<div className="table-footer-container">
@@ -32,10 +25,34 @@ export const Total = ({ dscto }) => {
 			</div>
 
 			<div className="table-footer-container-body">
-				<input type="number" name="subtotal" value={subtotal} className="table-item" readOnly={true} />
-				<input type="number" name="descuento" value={descuento} className="table-item" readOnly={true} />
-				<input type="number" name="iva" value={iva} className="table-item" readOnly={true} />
-				<input type="number" name="total" value={total} className="table-item" readOnly={true} />
+				<input
+					type="number"
+					name="subtotal"
+					value={totalPrecio.toFixed(4)}
+					className="table-item table-item--footer"
+					readOnly={true}
+				/>
+				<input
+					type="number"
+					name="descuento"
+					value={totalDscto.toFixed(4)}
+					className="table-item table-item--footer"
+					readOnly={true}
+				/>
+				<input
+					type="number"
+					name="iva"
+					value={totalIva.toFixed(4)}
+					className="table-item table-item--footer"
+					readOnly={true}
+				/>
+				<input
+					type="number"
+					name="total"
+					value={(totalPrecio + totalIva).toFixed(4)}
+					className="table-item table-item--footer"
+					readOnly={true}
+				/>
 			</div>
 		</div>
 	);

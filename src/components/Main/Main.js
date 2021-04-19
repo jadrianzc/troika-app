@@ -4,8 +4,8 @@ import { Items } from '../Items/Items';
 import { Total } from '../Total/Total';
 import './main.css';
 
-export const Main = ({ dscto }) => {
-	const { counter, handleAdd, handleSubtract } = useCounter([1]);
+export const Main = ({ dscto, setDscto }) => {
+	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([1]);
 
 	return (
 		<div id="id-table" className="table">
@@ -15,6 +15,9 @@ export const Main = ({ dscto }) => {
 				</button>
 				<button onClick={handleSubtract}>
 					<i className="fas fa-minus-circle"></i>
+				</button>
+				<button onClick={() => handleReset(setDscto)}>
+					<i class="fas fa-eraser"></i>
 				</button>
 			</div>
 			<div className="table-header-container">
