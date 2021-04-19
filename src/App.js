@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from 'react';
+import { Main } from './components/Main/Main';
+import './app.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+	const inputRef = useRef();
+	const [dscto, setDscto] = useState(0);
 
-export default App;
+	const handleDescuento = ({ target }) => {
+		setDscto(target.value);
+	};
+
+	const handleFocus = () => {
+		inputRef.current.select();
+	};
+
+	const handleBlur = ({ target }) => {
+		if (target.value === '') {
+			setDscto(0);
+		}
+	};
+
+	return (
+		<div className="main">
+			<div className="main-container-header">
+				<h1>Troika Cía. Ltda.</h1>
+			</div>
+			<div className="main-container-descuento">
+				<label htmlFor="descuento">Descuento: </label>
+				<input
+					type="number"
+					ref={inputRef}
+					name="descuento"
+					onChange={handleDescuento}
+					onFocus={handleFocus}
+					onBlur={handleBlur}
+					value={dscto}
+					className="input-descuento"
+				/>
+				<span>%</span>
+			</div>
+			<Main dscto={dscto} />
+		</div>
+	);
+};
