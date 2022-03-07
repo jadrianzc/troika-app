@@ -1,7 +1,7 @@
 import React from 'react';
 import './total.css';
 
-export const Total = ({ dscto }) => {
+export const Total = () => {
 	const dsctoList = document.querySelectorAll('.table-item-dsct');
 	const precioList = document.querySelectorAll('.table-item-precio');
 

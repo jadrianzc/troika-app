@@ -17,7 +17,7 @@ body {
 .main {
 	display: flex;
 	flex-direction: column;
-	width: 70%;
+	width: 95%;
 	margin: 50px auto;
 	padding: 10px 20px;
 	box-shadow: 0 0 20px #333;

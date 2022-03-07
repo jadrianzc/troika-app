@@ -10,12 +10,11 @@ export const useCounter = (initialValue) => {
 	const handleSubtract = () => {
 		let newCounter = [...counter];
 		newCounter.pop();
-		setCounter(newCounter);
+		newCounter.length >= 1 && setCounter(newCounter);
 	};
 
-	const handleReset = (setDscto) => {
-		setCounter([]);
-		setDscto(0);
+	const handleReset = () => {
+		setCounter([1]);
 	};
 
 	return { counter, handleAdd, handleSubtract, handleReset };

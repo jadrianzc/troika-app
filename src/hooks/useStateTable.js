@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export const useStateTable = (dscto) => {
+export const useStateTable = () => {
 	const [tableState, setTableState] = useState({
-		cantidad: 1,
-		totalParcial: 0,
-		descuento: 0,
-		precioUnitario: 0,
+		codigo: '',
+		descripcion: '',
+		costo: 0,
+		cantidad: 0,
 		precio: 0,
+		comisionCesar: 0,
+		ganancia: 0,
+		comisionMecanico: 0,
 	});
 
-	const { cantidad, totalParcial } = tableState;
+	const { codigo } = tableState;
 
-	const handleCantidad = ({ target }) => {
+	const handleChange = ({ target }) => {
 		setTableState({
 			...tableState,
 			[target.name]: target.value,
@@ -22,33 +26,40 @@ export const useStateTable = (dscto) => {
 		target.select();
 	};
 
-	const handleBlur = ({ target }) => {
-		if (target.value === '') {
-			setTableState({
-				...tableState,
-				[target.name]: 0,
-			});
+	const handleBlur = async () => {
+		try {
+			const data = await axios.get(
+				'http://localhost:4000/api/v1/repuestos/' + codigo
+			);
+
+			handleData(data.data[0]);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
-	useEffect(() => {
-		const valorDsct = ((totalParcial / 1.12) * (dscto / 100)).toFixed(4);
-		const valorPU = ((totalParcial / 1.12 - valorDsct) / cantidad).toFixed(4);
-		const valorPrecio = (valorPU * cantidad).toFixed(4);
-
-		setTableState((tableState) => ({
+	const handleData = (data) => {
+		setTableState({
 			...tableState,
-			descuento: valorDsct,
-			precioUnitario: [
-				valorPU === 'NaN' || valorPU === 'Infinity' ? '0.0000' : valorPU,
-			],
-			precio: [
-				valorPrecio === 'NaN' || valorPrecio === 'Infinity'
-					? '0.0000'
-					: valorPrecio,
-			],
-		}));
-	}, [cantidad, totalParcial, dscto]);
+			descripcion: data.descripcion,
+			costo: data.costo,
+		});
+	};
 
-	return { tableState, setTableState, handleCantidad, handleFocus, handleBlur };
+	// useEffect(() => {
+
+	// 	setTableState((tableState) => ({
+	// 		...tableState,
+	// 		precioUnitario: [
+	// 			valorPU === 'NaN' || valorPU === 'Infinity' ? '0.0000' : valorPU,
+	// 		],
+	// 		precio: [
+	// 			valorPrecio === 'NaN' || valorPrecio === 'Infinity'
+	// 				? '0.0000'
+	// 				: valorPrecio,
+	// 		],
+	// 	}));
+	// }, [codigo, totalParcial]);
+
+	return { tableState, setTableState, handleChange, handleFocus, handleBlur };
 };
