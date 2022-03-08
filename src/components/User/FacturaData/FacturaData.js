@@ -47,9 +47,16 @@ export const FacturaData = () => {
 						<label htmlFor="mecanico" className="form-label col-4 m-0">
 							Mecánico:
 						</label>
-						<select className="form-select" id="mecanico" aria-label="Default select example">
+						<select
+							className="form-select"
+							id="mecanico"
+							aria-label="Default select example"
+						>
 							{mecanicos.map((mecanico) => (
-								<option key={mecanico._id} value={mecanico.nombre}>{`${mecanico.nombre} ${mecanico.apellido}`}</option>
+								<option
+									key={mecanico._id}
+									value={mecanico.nombre}
+								>{`${mecanico.nombre} ${mecanico.apellido}`}</option>
 							))}
 						</select>
 					</div>
