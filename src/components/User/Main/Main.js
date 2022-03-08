@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCounter } from '../../hooks/useCounter';
+import { useCounter } from '../../../hooks/useCounter';
 import { FacturaData } from '../FacturaData/FacturaData';
 import { Items } from '../Items/Items';
 import './main.css';
@@ -19,7 +19,7 @@ export const Main = () => {
 					<i className="fas fa-minus-circle"></i>
 				</button>
 				<button onClick={() => handleReset()}>
-					<i class="fas fa-eraser"></i>
+					<i className="fas fa-eraser"></i>
 				</button>
 			</div>
 

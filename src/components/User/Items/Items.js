@@ -1,18 +1,9 @@
 import React from 'react';
-import { useStateTable } from '../../hooks/useStateTable';
+import { useStateTable } from '../../../hooks/useStateTable';
 
 export function Items() {
 	const { tableState, handleChange, handleFocus, handleBlur } = useStateTable();
-	const {
-		codigo,
-		descripcion,
-		costo,
-		cantidad,
-		precio,
-		comisionCesar,
-		ganancia,
-		comisionMecanico,
-	} = tableState;
+	const { codigo, descripcion, costo, cantidad, precio, comisionCesar, ganancia, comisionMecanico } = tableState;
 
 	return (
 		<div className="table-item-container">
@@ -33,14 +24,7 @@ export function Items() {
 				onFocus={handleFocus}
 				readOnly={true}
 			/>
-			<input
-				type="text"
-				name="costo"
-				value={costo}
-				className="table-item"
-				onFocus={handleFocus}
-				readOnly={true}
-			/>
+			<input type="text" name="costo" value={costo} className="table-item" onFocus={handleFocus} readOnly={true} />
 			<input
 				type="number"
 				name="cantidad"
@@ -66,7 +50,7 @@ export function Items() {
 				onFocus={handleFocus}
 			/>
 			<input
-				type="text"
+				type="number"
 				name="ganancia"
 				value={ganancia}
 				className="table-item"
@@ -74,7 +58,7 @@ export function Items() {
 				readOnly={true}
 			/>
 			<input
-				type="text"
+				type="number"
 				name="comisionMecanico"
 				value={comisionMecanico}
 				className="table-item"

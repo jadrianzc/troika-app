@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const useStateTable = () => {
@@ -13,7 +13,27 @@ export const useStateTable = () => {
 		comisionMecanico: 0,
 	});
 
-	const { codigo } = tableState;
+	const { codigo, costo, cantidad, precio, comisionCesar } = tableState;
+
+	useEffect(() => {
+		const precioTotalSinIva = (precio * cantidad - comisionCesar) / 1.12;
+		const gananciaTotal = Math.round(parseFloat((precioTotalSinIva - parseFloat(costo)).toFixed(2)));
+
+		setTableState((tableState) => ({
+			...tableState,
+			ganancia: gananciaTotal,
+			comisionMecanico:
+				gananciaTotal >= 1 && gananciaTotal <= 5
+					? 0.5
+					: gananciaTotal >= 6 && gananciaTotal <= 10
+					? 1.0
+					: gananciaTotal >= 11 && gananciaTotal <= 25
+					? 1.5
+					: gananciaTotal >= 26
+					? 2.0
+					: 0,
+		}));
+	}, [cantidad, precio, comisionCesar, costo]);
 
 	const handleChange = ({ target }) => {
 		setTableState({
@@ -28,10 +48,7 @@ export const useStateTable = () => {
 
 	const handleBlur = async () => {
 		try {
-			const data = await axios.get(
-				'http://localhost:4000/api/v1/repuestos/' + codigo
-			);
-
+			const data = await axios.get('http://localhost:4000/api/v1/repuestos/' + codigo);
 			handleData(data.data[0]);
 		} catch (error) {
 			console.log(error);
@@ -44,22 +61,10 @@ export const useStateTable = () => {
 			descripcion: data.descripcion,
 			costo: data.costo,
 		});
+
+		console.log(tableState);
+		console.log(data);
 	};
-
-	// useEffect(() => {
-
-	// 	setTableState((tableState) => ({
-	// 		...tableState,
-	// 		precioUnitario: [
-	// 			valorPU === 'NaN' || valorPU === 'Infinity' ? '0.0000' : valorPU,
-	// 		],
-	// 		precio: [
-	// 			valorPrecio === 'NaN' || valorPrecio === 'Infinity'
-	// 				? '0.0000'
-	// 				: valorPrecio,
-	// 		],
-	// 	}));
-	// }, [codigo, totalParcial]);
 
 	return { tableState, setTableState, handleChange, handleFocus, handleBlur };
 };
