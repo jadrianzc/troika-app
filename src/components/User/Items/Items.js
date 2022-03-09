@@ -1,9 +1,36 @@
 import React from 'react';
 import { useStateTable } from '../../../hooks/useStateTable';
 
-export function Items() {
+export function Items({ repuestoItems, setRepuestoItems }) {
 	const { tableState, handleChange, handleFocus, handleBlur } = useStateTable();
-	const { codigo, descripcion, costo, cantidad, precio, comisionCesar, ganancia, comisionMecanico } = tableState;
+	const {
+		codigo,
+		descripcion,
+		costo,
+		cantidad,
+		precio,
+		comisionCesar,
+		ganancia,
+		comisionMecanico,
+	} = tableState;
+
+	const handleItems = () => {
+		console.log('FILA: ', tableState);
+
+		if (repuestoItems.length === 0) {
+			setRepuestoItems([...repuestoItems, tableState]);
+		} else {
+			for (const [i, item] of repuestoItems.entries()) {
+				let copyRepuestoItems = [...repuestoItems];
+				copyRepuestoItems.splice(i, 1, tableState);
+				setRepuestoItems(copyRepuestoItems);
+				// } else {
+				// 	console.log('ELSE DEL BUCLE');
+				// 	setRepuestoItems([...repuestoItems, tableState]);
+				// }
+			}
+		}
+	};
 
 	return (
 		<div className="table-item-container">
@@ -24,7 +51,14 @@ export function Items() {
 				onFocus={handleFocus}
 				readOnly={true}
 			/>
-			<input type="text" name="costo" value={costo} className="table-item" onFocus={handleFocus} readOnly={true} />
+			<input
+				type="text"
+				name="costo"
+				value={costo}
+				className="table-item"
+				onFocus={handleFocus}
+				readOnly={true}
+			/>
 			<input
 				type="number"
 				name="cantidad"
@@ -48,6 +82,7 @@ export function Items() {
 				className="table-item"
 				onChange={handleChange}
 				onFocus={handleFocus}
+				onBlur={handleItems}
 			/>
 			<input
 				type="number"

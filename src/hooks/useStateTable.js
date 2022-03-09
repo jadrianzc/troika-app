@@ -17,7 +17,9 @@ export const useStateTable = () => {
 
 	useEffect(() => {
 		const precioTotalSinIva = (precio * cantidad - comisionCesar) / 1.12;
-		const gananciaTotal = Math.round(parseFloat((precioTotalSinIva - parseFloat(costo)).toFixed(2)));
+		const gananciaTotal = Math.round(
+			parseFloat((precioTotalSinIva - parseFloat(costo)).toFixed(2))
+		);
 
 		setTableState((tableState) => ({
 			...tableState,
@@ -48,7 +50,9 @@ export const useStateTable = () => {
 
 	const handleBlur = async () => {
 		try {
-			const data = await axios.get('http://localhost:4000/api/v1/repuestos/' + codigo);
+			const data = await axios.get(
+				'http://localhost:4000/api/v1/repuestos/' + codigo
+			);
 			handleData(data.data[0]);
 		} catch (error) {
 			console.log(error);

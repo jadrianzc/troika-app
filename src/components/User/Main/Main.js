@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCounter } from '../../../hooks/useCounter';
 import { FacturaData } from '../FacturaData/FacturaData';
 import { Items } from '../Items/Items';
 import './main.css';
 
 export const Main = () => {
+	const [repuestoItems, setRepuestoItems] = useState([]);
 	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([1]);
+	console.log(repuestoItems);
 
 	return (
 		<div id="id-table" className="table">
@@ -35,7 +37,11 @@ export const Main = () => {
 			</div>
 
 			{counter.map((count) => (
-				<Items key={count} />
+				<Items
+					key={count}
+					repuestoItems={repuestoItems}
+					setRepuestoItems={setRepuestoItems}
+				/>
 			))}
 		</div>
 	);
