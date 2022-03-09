@@ -61,9 +61,6 @@ export const useStateTable = () => {
 			descripcion: data.descripcion,
 			costo: data.costo,
 		});
-
-		console.log(tableState);
-		console.log(data);
 	};
 
 	return { tableState, setTableState, handleChange, handleFocus, handleBlur };
