@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStateTable } from '../../../hooks/useStateTable';
 
-export function Items({ repuestoItems, setRepuestoItems }) {
+export function Items({ setRepuestoItem }) {
 	const { tableState, handleChange, handleFocus, handleBlur } = useStateTable();
 	const {
 		codigo,
@@ -14,23 +14,27 @@ export function Items({ repuestoItems, setRepuestoItems }) {
 		comisionMecanico,
 	} = tableState;
 
-	const handleItems = () => {
-		console.log('FILA: ', tableState);
+	useEffect(() => {
+		setRepuestoItem(tableState);
+	}, [tableState, setRepuestoItem]);
 
-		if (repuestoItems.length === 0) {
-			setRepuestoItems([...repuestoItems, tableState]);
-		} else {
-			for (const [i, item] of repuestoItems.entries()) {
-				let copyRepuestoItems = [...repuestoItems];
-				copyRepuestoItems.splice(i, 1, tableState);
-				setRepuestoItems(copyRepuestoItems);
-				// } else {
-				// 	console.log('ELSE DEL BUCLE');
-				// 	setRepuestoItems([...repuestoItems, tableState]);
-				// }
-			}
-		}
-	};
+	// const handleItems = () => {
+	// 	console.log('FILA: ', tableState);
+
+	// 	if (repuestoItems.length === 0) {
+	// 		setRepuestoItems([...repuestoItems, tableState]);
+	// 	} else {
+	// 		for (const [i, item] of repuestoItems.entries()) {
+	// 			let copyRepuestoItems = [...repuestoItems];
+	// 			copyRepuestoItems.splice(i, 1, tableState);
+	// 			setRepuestoItems(copyRepuestoItems);
+	// 			// } else {
+	// 			// 	console.log('ELSE DEL BUCLE');
+	// 			// 	setRepuestoItems([...repuestoItems, tableState]);
+	// 			// }
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<div className="table-item-container">
@@ -82,7 +86,7 @@ export function Items({ repuestoItems, setRepuestoItems }) {
 				className="table-item"
 				onChange={handleChange}
 				onFocus={handleFocus}
-				onBlur={handleItems}
+				// onBlur={handleItems}
 			/>
 			<input
 				type="number"

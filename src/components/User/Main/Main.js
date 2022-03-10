@@ -5,16 +5,28 @@ import { Items } from '../Items/Items';
 import './main.css';
 
 export const Main = () => {
+	const [repuestoItem, setRepuestoItem] = useState({});
 	const [repuestoItems, setRepuestoItems] = useState([]);
-	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([1]);
+	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([{}]);
+	// console.log(Object.keys(counter[0]).length === 0);
+	console.log(repuestoItem);
 	console.log(repuestoItems);
+
+	const handleAddItemRepuestos = () => {
+		setRepuestoItems([...repuestoItems, repuestoItem]);
+	};
 
 	return (
 		<div id="id-table" className="table">
 			<FacturaData />
 
 			<div className="table-icon-container">
-				<button onClick={handleAdd}>
+				<button
+					onClick={() => {
+						handleAdd();
+						handleAddItemRepuestos();
+					}}
+				>
 					<i className="fas fa-plus-circle"></i>
 				</button>
 				<button onClick={handleSubtract}>
@@ -37,11 +49,7 @@ export const Main = () => {
 			</div>
 
 			{counter.map((count) => (
-				<Items
-					key={count}
-					repuestoItems={repuestoItems}
-					setRepuestoItems={setRepuestoItems}
-				/>
+				<Items key={count} setRepuestoItem={setRepuestoItem} />
 			))}
 		</div>
 	);
