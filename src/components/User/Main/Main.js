@@ -12,8 +12,26 @@ export const Main = () => {
 	console.log(repuestoItem);
 	console.log(repuestoItems);
 
-	const handleAddItemRepuestos = () => {
+	const handleAddItemRepuestos = (repuestoItem) => {
+		// if (repuestoItems.length === 0) {
+		// 	setRepuestoItems([repuestoItem]);
+		// } else {
+		// 	// for (const item of repuestoItems) {
+		// 	// 	if (item.codigo === repuestoItem.codigo) {
+		// 	// 		setRepuestoItems([...repuestoItems, repuestoItem]);
+		// 	// 		break;
+		// 	// 	}
+		// 	// }
+		// 	const itemsN = repuestoItems.filter(
+		// 		(item) => item.codigo !== repuestoItem.codigo
+		// 	);
+		// 	console.log(itemsN);
+		// }
 		setRepuestoItems([...repuestoItems, repuestoItem]);
+		const itemsN = repuestoItems.filter(
+			(item) => item.codigo !== repuestoItem.codigo
+		);
+		console.log(itemsN);
 	};
 
 	return (
@@ -24,7 +42,7 @@ export const Main = () => {
 				<button
 					onClick={() => {
 						handleAdd();
-						handleAddItemRepuestos();
+						handleAddItemRepuestos(repuestoItem);
 					}}
 				>
 					<i className="fas fa-plus-circle"></i>
