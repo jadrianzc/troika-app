@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useStateTable } from '../../../hooks/useStateTable';
 
-export function Items({ setRepuestoItem }) {
-	const { tableState, handleChange, handleFocus, handleBlur } = useStateTable();
+export function Items({ repuestoItems, setRepuestoItems }) {
+	const { tableState, handleChange, handleBlur } = useStateTable();
 	const {
 		codigo,
 		descripcion,
@@ -15,26 +15,22 @@ export function Items({ setRepuestoItem }) {
 	} = tableState;
 
 	useEffect(() => {
-		setRepuestoItem(tableState);
-	}, [tableState, setRepuestoItem]);
+		handleTableData();
+	}, [ganancia]);
 
-	// const handleItems = () => {
-	// 	console.log('FILA: ', tableState);
+	const handleTableData = () => {
+		setRepuestoItems((item) => {
+			const dataFiltrada = item.filter(
+				(ite) => ite.codigo !== tableState.codigo && ite.codigo !== ''
+			);
+			return dataFiltrada.concat(tableState);
+		});
+	};
 
-	// 	if (repuestoItems.length === 0) {
-	// 		setRepuestoItems([...repuestoItems, tableState]);
-	// 	} else {
-	// 		for (const [i, item] of repuestoItems.entries()) {
-	// 			let copyRepuestoItems = [...repuestoItems];
-	// 			copyRepuestoItems.splice(i, 1, tableState);
-	// 			setRepuestoItems(copyRepuestoItems);
-	// 			// } else {
-	// 			// 	console.log('ELSE DEL BUCLE');
-	// 			// 	setRepuestoItems([...repuestoItems, tableState]);
-	// 			// }
-	// 		}
-	// 	}
-	// };
+	const handleFocus = ({ target }) => {
+		console.log(target.value);
+		console.log(repuestoItems);
+	};
 
 	return (
 		<div className="table-item-container">
@@ -44,15 +40,17 @@ export function Items({ setRepuestoItem }) {
 				value={codigo}
 				className="table-item"
 				onChange={handleChange}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
+				onBlur={(e) => {
+					handleFocus(e);
+					handleBlur();
+				}}
 			/>
 			<input
 				type="text"
 				name="descripcion"
 				value={descripcion}
 				className="table-item table-item--off"
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 				readOnly={true}
 			/>
 			<input
@@ -60,7 +58,7 @@ export function Items({ setRepuestoItem }) {
 				name="costo"
 				value={costo}
 				className="table-item"
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 				readOnly={true}
 			/>
 			<input
@@ -69,7 +67,7 @@ export function Items({ setRepuestoItem }) {
 				value={cantidad}
 				className="table-item table-item-precio"
 				onChange={handleChange}
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 			/>
 			<input
 				type="number"
@@ -77,7 +75,7 @@ export function Items({ setRepuestoItem }) {
 				value={precio}
 				className="table-item"
 				onChange={handleChange}
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 			/>
 			<input
 				type="number"
@@ -85,7 +83,7 @@ export function Items({ setRepuestoItem }) {
 				value={comisionCesar}
 				className="table-item"
 				onChange={handleChange}
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 				// onBlur={handleItems}
 			/>
 			<input
@@ -93,7 +91,7 @@ export function Items({ setRepuestoItem }) {
 				name="ganancia"
 				value={ganancia}
 				className="table-item"
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 				readOnly={true}
 			/>
 			<input
@@ -101,7 +99,7 @@ export function Items({ setRepuestoItem }) {
 				name="comisionMecanico"
 				value={comisionMecanico}
 				className="table-item"
-				onFocus={handleFocus}
+				// onFocus={handleFocus}
 				readOnly={true}
 			/>
 		</div>

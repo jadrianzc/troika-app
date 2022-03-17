@@ -44,10 +44,6 @@ export const useStateTable = () => {
 		});
 	};
 
-	const handleFocus = ({ target }) => {
-		target.select();
-	};
-
 	const handleBlur = async () => {
 		try {
 			const data = await axios.get(
@@ -67,5 +63,5 @@ export const useStateTable = () => {
 		});
 	};
 
-	return { tableState, setTableState, handleChange, handleFocus, handleBlur };
+	return { tableState, setTableState, handleChange, handleBlur };
 };

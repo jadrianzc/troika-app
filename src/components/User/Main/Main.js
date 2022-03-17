@@ -5,46 +5,17 @@ import { Items } from '../Items/Items';
 import './main.css';
 
 export const Main = () => {
-	const [repuestoItem, setRepuestoItem] = useState({});
 	const [repuestoItems, setRepuestoItems] = useState([]);
 	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([{}]);
-	// console.log(Object.keys(counter[0]).length === 0);
-	console.log(repuestoItem);
-	console.log(repuestoItems);
 
-	const handleAddItemRepuestos = (repuestoItem) => {
-		// if (repuestoItems.length === 0) {
-		// 	setRepuestoItems([repuestoItem]);
-		// } else {
-		// 	// for (const item of repuestoItems) {
-		// 	// 	if (item.codigo === repuestoItem.codigo) {
-		// 	// 		setRepuestoItems([...repuestoItems, repuestoItem]);
-		// 	// 		break;
-		// 	// 	}
-		// 	// }
-		// 	const itemsN = repuestoItems.filter(
-		// 		(item) => item.codigo !== repuestoItem.codigo
-		// 	);
-		// 	console.log(itemsN);
-		// }
-		setRepuestoItems([...repuestoItems, repuestoItem]);
-		const itemsN = repuestoItems.filter(
-			(item) => item.codigo !== repuestoItem.codigo
-		);
-		console.log(itemsN);
-	};
+	// console.log(repuestoItems);
 
 	return (
 		<div id="id-table" className="table">
 			<FacturaData />
 
 			<div className="table-icon-container">
-				<button
-					onClick={() => {
-						handleAdd();
-						handleAddItemRepuestos(repuestoItem);
-					}}
-				>
+				<button onClick={handleAdd}>
 					<i className="fas fa-plus-circle"></i>
 				</button>
 				<button onClick={handleSubtract}>
@@ -67,7 +38,11 @@ export const Main = () => {
 			</div>
 
 			{counter.map((count) => (
-				<Items key={count} setRepuestoItem={setRepuestoItem} />
+				<Items
+					key={count}
+					repuestoItems={repuestoItems}
+					setRepuestoItems={setRepuestoItems}
+				/>
 			))}
 		</div>
 	);
