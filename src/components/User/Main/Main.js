@@ -5,45 +5,49 @@ import { Items } from '../Items/Items';
 import './main.css';
 
 export const Main = () => {
-	const [repuestoItems, setRepuestoItems] = useState([]);
-	const { counter, handleAdd, handleSubtract, handleReset } = useCounter([{}]);
+	const [repuestoItems, setRepuestoItems] = useState({});
+	const { counter, handleAdd, handleSubtract } = useCounter([repuestoItems]);
 
-	// console.log(repuestoItems);
+	console.log(repuestoItems);
+	console.log(counter);
 
 	return (
 		<div id="id-table" className="table">
 			<FacturaData />
 
-			<div className="table-icon-container">
-				<button onClick={handleAdd}>
-					<i className="fas fa-plus-circle"></i>
-				</button>
-				<button onClick={handleSubtract}>
-					<i className="fas fa-minus-circle"></i>
-				</button>
-				<button onClick={() => handleReset()}>
-					<i className="fas fa-eraser"></i>
-				</button>
-			</div>
-
-			<div className="table-header-container">
-				<label className="table-header">Código</label>
-				<label className="table-header">Descripción</label>
-				<label className="table-header">Costo</label>
-				<label className="table-header">Cantidad</label>
-				<label className="table-header">Precio</label>
-				<label className="table-header">C. César</label>
-				<label className="table-header">Ganancia</label>
-				<label className="table-header">C. Mecánico</label>
-			</div>
-
-			{counter.map((count) => (
-				<Items
-					key={count}
-					repuestoItems={repuestoItems}
-					setRepuestoItems={setRepuestoItems}
-				/>
-			))}
+			<table className="table">
+				<thead className="text-center align-middle">
+					<tr>
+						<th scope="col">
+							<button
+								onClick={() => {
+									handleAdd(repuestoItems);
+								}}
+								className="btn btn-success"
+							>
+								<i className="fas fa-plus-circle"></i>
+							</button>
+						</th>
+						<th scope="col">Código</th>
+						<th scope="col">Descripción</th>
+						<th scope="col">Costo</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Precio</th>
+						<th scope="col">C. César</th>
+						<th scope="col">Ganancia</th>
+						<th scope="col">C. Mecánico</th>
+					</tr>
+				</thead>
+				<tbody className="text-center align-middle">
+					{counter.map((count) => (
+						<Items
+							key={count.codigo}
+							handleSubtract={handleSubtract}
+							setRepuestoItems={setRepuestoItems}
+						/>
+					))}
+				</tbody>
+			</table>
 		</div>
 	);
 };
